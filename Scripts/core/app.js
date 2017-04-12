@@ -2,6 +2,10 @@
 (function () {
     //Function level variables
     var canvas = document.getElementById("canvas");
+    var canvasWidth;
+    var canvasHalfWidth;
+    var canvasHeight;
+    var canvasHalfHeight;
     var stage;
     var helloLabel;
     var goodbyeLabel;
@@ -14,11 +18,14 @@
      *  @returns void
      */
     function Start() {
+        OnResize();
         //create a new stage container (parent container for our app)
         stage = new createjs.Stage(canvas);
         createjs.Ticker.framerate = 60; //set the framerate to 60 FPS
-        //Look for a tick event (every frame), refer to update
+        //Look for a tick event (every frame), call update function
         createjs.Ticker.on("tick", Update);
+        //enable mouseOver, check it at 20fps
+        stage.enableMouseOver(20);
         Main(); //call the main function
     }
     /**
@@ -58,24 +65,47 @@
         helloLabel.y = 125;
         */
         //We use our custom Label object which extends the Text /**
-        helloLabel = new objects.Label("Hello, World", "20px", "Consolas", "#000000", 125, 125, true);
-        goodbyeLabel = new objects.Label("Good Bye!", "24px", "Arial", "#FF0000", 125, 125, true);
+        helloLabel = new objects.Label("Hello, World", "20px", "Consolas", "#000000", canvasHalfWidth, canvasHalfHeight, true);
+        goodbyeLabel = new objects.Label("Good Bye!", "24px", "Arial", "#FF0000", canvasHalfWidth, canvasHalfHeight, true);
         //add click me clickMeButton
+        /*
         clickMeButton = new createjs.Bitmap("../../Assets/images/clickMeButton.png");
         clickMeButton.regX = clickMeButton.getBounds().width * 0.5;
         clickMeButton.regY = clickMeButton.getBounds().height * 0.5;
         clickMeButton.x = 125;
         clickMeButton.y = 200;
+        */
+        //add a click me button with custom button class
+        clickMeButton = new objects.buttonex("../../Assets/images/clickMeButton.png", 150, 40, canvasHalfWidth, canvasHalfHeight + 75, true);
         //add our helloLabel to the stage
         //all objects added to the stage appear in the order they are added
         stage.addChild(helloLabel);
         stage.addChild(goodbyeLabel);
         stage.addChild(clickMeButton);
-        clickMeButton.on("click", function () {
+        //click button event listener, and handler
+        clickMeButton.on("click", function (event) {
             helloLabel.text = "Hi Ya!";
             goodbyeLabel.text = "See ya!";
         });
     }
+    function OnResize() {
+        canvasWidth = window.innerWidth * 0.5;
+        canvasHeight = window.innerHeight * 0.5;
+        canvasHalfWidth = canvasWidth * 0.5;
+        canvasHalfHeight = canvasHeight * 0.5;
+        canvas.setAttribute("width", canvasWidth.toString());
+        canvas.setAttribute("height", canvasHeight.toString());
+        //have the objects been created yet?
+        if (helloLabel) {
+            helloLabel.x = canvasHalfWidth;
+            helloLabel.y = canvasHalfHeight;
+            goodbyeLabel.x = canvasHalfWidth;
+            goodbyeLabel.y = canvasHalfHeight;
+            clickMeButton.x = canvasHalfWidth;
+            clickMeButton.y = canvasHalfHeight + 75;
+        }
+    }
     window.onload = Start;
+    window.onresize = OnResize;
 })();
 //# sourceMappingURL=app.js.map
