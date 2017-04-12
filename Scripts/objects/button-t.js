@@ -32,19 +32,17 @@ var objects;
          *
          * @memberOf buttonex
          */
-        function buttonex(loader, _imagePath, _width, _height, x, y, _isCentered) {
+        function buttonex(loader, _imagePath, x, y, _isCentered) {
             //initialize the imagePath via a super call to the bitmap class constructor
             var _this = 
             //send the result of the preload queue to the super class object
             _super.call(this, loader.getResult(_imagePath)) || this;
             _this._imagePath = _imagePath;
-            _this._width = _width;
-            _this._height = _height;
             _this._isCentered = _isCentered;
             //check to see if the user requires the button to be centered
             if (_isCentered) {
-                _this.regX = _this._width * 0.5;
-                _this.regY = _this._height * 0.5;
+                _this.regX = _this.getBounds().width * 0.5;
+                _this.regY = _this.getBounds().height * 0.5;
             }
             //set the positon of the button
             _this.x = x;

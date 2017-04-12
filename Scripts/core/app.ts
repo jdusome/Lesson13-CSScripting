@@ -112,7 +112,7 @@ function Main():void {
   */
 
   //add a click me button with custom button class
-  clickMeButton = new objects.buttonex(loader,"clickMeButton",150,40,canvasHalfWidth,canvasHalfHeight+75,true);
+  clickMeButton = new objects.buttonex(loader,"clickMeButton",canvasHalfWidth,canvasHalfHeight+75,true);
   
 
   //add our helloLabel to the stage

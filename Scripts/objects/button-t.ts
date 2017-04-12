@@ -23,17 +23,17 @@ module objects {
          * 
          * @memberOf buttonex
          */
-        constructor(loader: createjs.LoadQueue, private _imagePath:string, private _width:number, private _height:number, x:number, y:number, private _isCentered:boolean){
+        constructor(loader: createjs.LoadQueue, private _imagePath:string, x:number, y:number, private _isCentered:boolean){
 
             //initialize the imagePath via a super call to the bitmap class constructor
-            
+
             //send the result of the preload queue to the super class object
             super(loader.getResult(_imagePath));
 
             //check to see if the user requires the button to be centered
             if(_isCentered){
-                this.regX = this._width * 0.5;
-                this.regY = this._height * 0.5;
+                this.regX = this.getBounds().width * 0.5;
+                this.regY = this.getBounds().height * 0.5;
             }
 
             //set the positon of the button
