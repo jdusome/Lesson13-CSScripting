@@ -13,6 +13,7 @@ module objects {
 
         /**
          * Creates an instance of buttonex. (x and y already exist within the class, so we dont need to declare private)
+         * @param {createjs.LoadQueue} loader 
          * @param {string} _imagePath 
          * @param {number} _width 
          * @param {number} _height 
@@ -22,10 +23,12 @@ module objects {
          * 
          * @memberOf buttonex
          */
-        constructor(private _imagePath:string, private _width:number, private _height:number, x:number, y:number, private _isCentered:boolean){
+        constructor(loader: createjs.LoadQueue, private _imagePath:string, private _width:number, private _height:number, x:number, y:number, private _isCentered:boolean){
 
             //initialize the imagePath via a super call to the bitmap class constructor
-            super(_imagePath);
+            
+            //send the result of the preload queue to the super class object
+            super(loader.getResult(_imagePath));
 
             //check to see if the user requires the button to be centered
             if(_isCentered){

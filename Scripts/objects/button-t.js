@@ -22,6 +22,7 @@ var objects;
         //CONSTRUCTORS
         /**
          * Creates an instance of buttonex. (x and y already exist within the class, so we dont need to declare private)
+         * @param {createjs.LoadQueue} loader
          * @param {string} _imagePath
          * @param {number} _width
          * @param {number} _height
@@ -31,10 +32,11 @@ var objects;
          *
          * @memberOf buttonex
          */
-        function buttonex(_imagePath, _width, _height, x, y, _isCentered) {
-            var _this = 
+        function buttonex(loader, _imagePath, _width, _height, x, y, _isCentered) {
             //initialize the imagePath via a super call to the bitmap class constructor
-            _super.call(this, _imagePath) || this;
+            var _this = 
+            //send the result of the preload queue to the super class object
+            _super.call(this, loader.getResult(_imagePath)) || this;
             _this._imagePath = _imagePath;
             _this._width = _width;
             _this._height = _height;

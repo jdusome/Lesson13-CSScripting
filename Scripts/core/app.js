@@ -10,6 +10,20 @@
     var helloLabel;
     var goodbyeLabel;
     var clickMeButton;
+    //this is a loader, accessible from anywhere in our script
+    var loader;
+    //this function will preload our image files for the app
+    /**
+     * @method Init
+     * @returns void
+     */
+    function Init() {
+        loader = new createjs.LoadQueue(); //filestream (load container)
+        loader.on("complete", Start); //call Start method when finished loading
+        loader.loadManifest([
+            { id: "clickMeButton", src: "../../Assets/images/clickMeButton.png" }
+        ]);
+    }
     /**
      * This method initializes the createjs Stage object and
      * starts the app or game loop
@@ -76,7 +90,7 @@
         clickMeButton.y = 200;
         */
         //add a click me button with custom button class
-        clickMeButton = new objects.buttonex("../../Assets/images/clickMeButton.png", 150, 40, canvasHalfWidth, canvasHalfHeight + 75, true);
+        clickMeButton = new objects.buttonex(loader, "clickMeButton", 150, 40, canvasHalfWidth, canvasHalfHeight + 75, true);
         //add our helloLabel to the stage
         //all objects added to the stage appear in the order they are added
         stage.addChild(helloLabel);
@@ -88,6 +102,10 @@
             goodbyeLabel.text = "See ya!";
         });
     }
+    /**
+     * This method responds to the window object, and resizes our canvas and positions elements accordingly
+     *
+     */
     function OnResize() {
         canvasWidth = window.innerWidth * 0.5;
         canvasHeight = window.innerHeight * 0.5;
@@ -105,7 +123,8 @@
             clickMeButton.y = canvasHalfHeight + 75;
         }
     }
-    window.onload = Start;
+    //window binding events
+    window.onload = Init;
     window.onresize = OnResize;
 })();
 //# sourceMappingURL=app.js.map
