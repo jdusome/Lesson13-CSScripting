@@ -123,8 +123,7 @@ function Main():void {
 
   //click button event listener, and handler
   clickMeButton.on("click", function(event:createjs.MouseEvent){
-    helloLabel.text = "Hi Ya!";
-    goodbyeLabel.text = "See ya!";
+    window.location.href = ("http://google.ca");
   });
 
 }

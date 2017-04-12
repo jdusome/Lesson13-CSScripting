@@ -98,8 +98,7 @@
         stage.addChild(clickMeButton);
         //click button event listener, and handler
         clickMeButton.on("click", function (event) {
-            helloLabel.text = "Hi Ya!";
-            goodbyeLabel.text = "See ya!";
+            window.location.href = ("http://google.ca");
         });
     }
     /**
